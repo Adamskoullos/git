@@ -7,6 +7,7 @@ A reference guide for more intermediate daily workflows in Git.
 - [Stash local feature changes and update from dev branch](#Stash-local-feature-changes-and-update-from-dev-branch)
 - [Rebase](#Rebase)
 - [Handling merge conflicts](#Handling-merge-conflicts)
+- [Stash Rebase Workflow](#Stash-Rebase-Workflow)
 
 ---
 
@@ -74,3 +75,19 @@ Lets say two devs are working on the same feature branch:
 If pushing to an origin branch (feature or hotfix) causes merge conflicts we can kill two birds with one stone by syncing with the origin branch as well as adding our changes back to our local branch with one command: `pit pull origin branchName --rebase`
 
 At this point our local branch has been updated with the origin branch and our local changes have been re-added to the local branch. Its now time time to push the local branch back to the origin branch: `git push origin branchName`
+
+## Stash Rebase Workflow
+
+Sometimes when working on a feature, the master branch at origin gets updated. We can keep our local feature branch up to date so when we push back up every thing is clean and easy to merge:
+
+**Note**: All within feature branch:
+
+1. Unstage changes on local feature branch if needed so we can stash all work before rebase: `git reset`
+2. Stash all unstaged work: `git stash`
+3. Pull in updated branch from origin in this case master and add any local commits back on top:
+
+```
+git pull origin master --rebase
+```
+
+4. Add unstaged stashed changes back on top: `git stash pop`
