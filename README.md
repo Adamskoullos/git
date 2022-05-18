@@ -8,6 +8,8 @@ A reference guide for more intermediate daily workflows in Git.
 - [Rebase](#Rebase)
 - [Handling merge conflicts](#Handling-merge-conflicts)
 - [Stash Rebase Workflow](#Stash-Rebase-Workflow)
+- [Reset commits](#Reset-commits)
+- [Add to previous commit](#Add-to-previous-commit)
 
 ---
 
@@ -76,6 +78,8 @@ If pushing to an origin branch (feature or hotfix) causes merge conflicts we can
 
 At this point our local branch has been updated with the origin branch and our local changes have been re-added to the local branch. Its now time time to push the local branch back to the origin branch: `git push origin branchName`
 
+---
+
 ## Stash Rebase Workflow
 
 Sometimes when working on a feature, the master branch at origin gets updated. We can keep our local feature branch up to date so when we push back up every thing is clean and easy to merge:
@@ -91,3 +95,25 @@ git pull origin master --rebase
 ```
 
 4. Add unstaged stashed changes back on top: `git stash pop`
+
+---
+
+## Reset commits
+
+Sometimes we get into a position where we want to clean up our commits. We can undo all commits and unstage changes to a specific commit. This does not delete any changes made but puts them back to be unstaged so changes can be organized into new commits:
+
+The below example removes the last `5` commits and unstaging all changes within those commits:
+
+```
+git reset HEAD~5
+```
+
+---
+
+## Add to previous commit
+
+Sometimes we make a final commit, push up and make a PR only to make another change. In this situation we can `amend` a further commit to the previous commit:
+
+```
+git commit --amend --no-edit
+```
